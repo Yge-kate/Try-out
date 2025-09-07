@@ -1,0 +1,49 @@
+{% extends "layout.html" %}
+{% block title %}Dashboard - Financial Tracker{% endblock %}
+{% block content %}
+    <main>
+      <section class="cards">
+        <div class="card">
+          <h3>Balance</h3>
+          <p id="balance">{{ balance or "$0.00" }}</p>
+        </div>
+        <div class="card">
+          <h3>Income (Month)</h3>
+          <p id="income">{{ income or "$0.00" }}</p>
+        </div>
+        <div class="card">
+          <h3>Expenses (Month)</h3>
+          <p id="expenses">{{ expenses or "$0.00" }}</p>
+        </div>
+      </section>
+      <section>
+        <h2>Transactions</h2>
+        <p><a href="/transactions/new">Add transaction</a></p>
+        <table style="width:100%; border-collapse: collapse;">
+          <thead>
+            <tr style="text-align:left; color: var(--muted);">
+              <th style="padding:8px 4px;">Date</th>
+              <th style="padding:8px 4px;">Description</th>
+              <th style="padding:8px 4px;">Category</th>
+              <th style="padding:8px 4px; text-align:right;">Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for t in transactions %}
+            <tr>
+              <td style="padding:8px 4px; color: var(--muted);">{{ t.timestamp.strftime('%Y-%m-%d') }}</td>
+              <td style="padding:8px 4px;">{{ t.description }}</td>
+              <td style="padding:8px 4px; color: var(--muted);">{{ t.category or '-' }}</td>
+              <td style="padding:8px 4px; text-align:right; color: {{ 'var(--good)' if t.is_income else 'var(--bad)' }}">${{ '%.2f' % (t.amount_cents/100) }}</td>
+            </tr>
+            {% else %}
+            <tr>
+              <td colspan="4" style="padding:12px 4px; color: var(--muted);">No transactions yet.</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </section>
+    </main>
+{% endblock %}
+

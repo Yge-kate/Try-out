@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+{% block title %}New Transaction - Financial Tracker{% endblock %}
+{% block content %}
+    <main>
+      <form method="post" class="card" style="max-width:520px;">
+        <div style="display:flex; gap:12px;">
+          <label style="flex:1;">
+            <div style="color:var(--muted); font-size:12px; margin-bottom:6px;">Description</div>
+            <input name="description" required style="width:100%; padding:10px; border-radius:8px; border:1px solid #2a335b; background:#0f1530; color:var(--text);" />
+          </label>
+        </div>
+        <div style="display:flex; gap:12px; margin-top:12px;">
+          <label style="flex:1;">
+            <div style="color:var(--muted); font-size:12px; margin-bottom:6px;">Category</div>
+            <input name="category" style="width:100%; padding:10px; border-radius:8px; border:1px solid #2a335b; background:#0f1530; color:var(--text);" />
+          </label>
+          <label style="width:180px;">
+            <div style="color:var(--muted); font-size:12px; margin-bottom:6px;">Amount</div>
+            <input name="amount" type="number" step="0.01" required style="width:100%; padding:10px; border-radius:8px; border:1px solid #2a335b; background:#0f1530; color:var(--text);" />
+          </label>
+        </div>
+        <div style="display:flex; gap:12px; margin-top:12px;">
+          <label>
+            <input type="radio" name="kind" value="expense" checked /> Expense
+          </label>
+          <label>
+            <input type="radio" name="kind" value="income" /> Income
+          </label>
+        </div>
+        <div style="margin-top:16px;">
+          <button type="submit" style="background:var(--accent); color:#001024; padding:10px 14px; border:0; border-radius:8px; font-weight:700;">Save</button>
+        </div>
+      </form>
+    </main>
+{% endblock %}
+
