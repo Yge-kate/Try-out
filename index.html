@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Finance Tracker</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <header class="app-header">
+    <h1>Finance Tracker</h1>
+    <div class="header-actions">
+      <button id="toggle-theme" aria-label="Toggle dark mode" title="Toggle dark mode">🌙</button>
+    </div>
+  </header>
+  <main class="container">
+    <section class="summary">
+      <div class="card">
+        <div class="label">Income</div>
+        <div class="value" id="summary-income">$0.00</div>
+      </div>
+      <div class="card">
+        <div class="label">Expenses</div>
+        <div class="value" id="summary-expenses">$0.00</div>
+      </div>
+      <div class="card">
+        <div class="label">Balance</div>
+        <div class="value" id="summary-balance">$0.00</div>
+      </div>
+    </section>
+
+    <section class="controls">
+      <div class="control-row">
+        <label>
+          Month
+          <input type="month" id="filter-month">
+        </label>
+        <label class="grow">
+          Search
+          <input type="text" id="filter-search" placeholder="Description or category">
+        </label>
+        <div class="control-buttons">
+          <button id="btn-export">Export</button>
+          <label class="import-label">
+            <input type="file" id="input-import" accept="application/json" hidden>
+            <span role="button" tabindex="0">Import</span>
+          </label>
+          <button id="btn-load-sample" class="secondary">Load Sample</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="form-section">
+      <form id="transaction-form" autocomplete="off">
+        <div class="form-grid">
+          <label>
+            Date
+            <input type="date" id="tx-date" required>
+          </label>
+          <label>
+            Description
+            <input type="text" id="tx-desc" placeholder="e.g., Grocery" required>
+          </label>
+          <label>
+            Category
+            <input type="text" id="tx-category" placeholder="e.g., Food" required>
+          </label>
+          <label>
+            Amount
+            <input type="number" id="tx-amount" step="0.01" min="0" required>
+          </label>
+          <label>
+            Type
+            <select id="tx-type" required>
+              <option value="income">Income</option>
+              <option value="expense">Expense</option>
+            </select>
+          </label>
+          <div class="form-actions">
+            <button type="submit">Add</button>
+            <button type="reset" class="secondary">Clear</button>
+          </div>
+        </div>
+      </form>
+    </section>
+
+    <section class="table-section">
+      <table>
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Description</th>
+            <th>Category</th>
+            <th class="right">Amount</th>
+            <th>Type</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="transactions-body">
+          <!-- rows inserted here -->
+        </tbody>
+      </table>
+      <div id="empty-state" class="empty">No transactions yet.</div>
+    </section>
+
+    <section class="charts">
+      <div class="chart-card">
+        <h3>By Category</h3>
+        <canvas id="chart-category" height="200"></canvas>
+      </div>
+      <div class="chart-card">
+        <h3>Balance Over Time</h3>
+        <canvas id="chart-balance" height="200"></canvas>
+      </div>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js" crossorigin="anonymous"></script>
+  <script src="./app.js"></script>
+  
+</body>
+</html>
+
