@@ -1,0 +1,25 @@
+{
+  "name": "financial-status-tracker",
+  "version": "1.0.0",
+  "description": "A comprehensive financial status tracking app for monthly financial management",
+  "main": "index.html",
+  "scripts": {
+    "start": "python -m http.server 8000",
+    "dev": "live-server ."
+  },
+  "keywords": [
+    "finance",
+    "tracking",
+    "budgeting",
+    "expenses",
+    "income"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "dependencies": {
+    "chart.js": "^4.4.0"
+  },
+  "devDependencies": {
+    "live-server": "^1.2.2"
+  }
+}

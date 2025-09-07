@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financial Status Tracker</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1><i class="fas fa-chart-line"></i> Financial Status Tracker</h1>
+                <p>Track your monthly financial progress</p>
+            </div>
+            <div class="header-actions">
+                <select id="monthSelector" class="month-selector">
+                    <option value="">Current Month</option>
+                </select>
+                <button id="exportBtn" class="btn btn-secondary">
+                    <i class="fas fa-download"></i> Export Data
+                </button>
+            </div>
+        </header>
+
+        <!-- Dashboard Overview -->
+        <section class="dashboard">
+            <div class="stats-grid">
+                <div class="stat-card income">
+                    <div class="stat-icon">
+                        <i class="fas fa-arrow-up"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3>Total Income</h3>
+                        <p class="stat-value" id="totalIncome">$0.00</p>
+                        <span class="stat-change" id="incomeChange">+0% from last month</span>
+                    </div>
+                </div>
+                
+                <div class="stat-card expense">
+                    <div class="stat-icon">
+                        <i class="fas fa-arrow-down"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3>Total Expenses</h3>
+                        <p class="stat-value" id="totalExpenses">$0.00</p>
+                        <span class="stat-change" id="expenseChange">+0% from last month</span>
+                    </div>
+                </div>
+                
+                <div class="stat-card savings">
+                    <div class="stat-icon">
+                        <i class="fas fa-piggy-bank"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3>Net Savings</h3>
+                        <p class="stat-value" id="netSavings">$0.00</p>
+                        <span class="stat-change" id="savingsChange">+0% from last month</span>
+                    </div>
+                </div>
+                
+                <div class="stat-card budget">
+                    <div class="stat-icon">
+                        <i class="fas fa-target"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3>Budget Status</h3>
+                        <p class="stat-value" id="budgetStatus">On Track</p>
+                        <span class="stat-change" id="budgetPercentage">75% used</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Left Panel -->
+            <div class="left-panel">
+                <!-- Income Section -->
+                <section class="section">
+                    <h2><i class="fas fa-plus-circle"></i> Add Income</h2>
+                    <form id="incomeForm" class="form">
+                        <div class="form-group">
+                            <label for="incomeSource">Income Source</label>
+                            <input type="text" id="incomeSource" placeholder="e.g., Salary, Freelance, Investment" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="incomeAmount">Amount</label>
+                            <input type="number" id="incomeAmount" placeholder="0.00" step="0.01" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="incomeDate">Date</label>
+                            <input type="date" id="incomeDate" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-plus"></i> Add Income
+                        </button>
+                    </form>
+                </section>
+
+                <!-- Expense Section -->
+                <section class="section">
+                    <h2><i class="fas fa-minus-circle"></i> Add Expense</h2>
+                    <form id="expenseForm" class="form">
+                        <div class="form-group">
+                            <label for="expenseCategory">Category</label>
+                            <select id="expenseCategory" required>
+                                <option value="">Select Category</option>
+                                <option value="Food & Dining">Food & Dining</option>
+                                <option value="Transportation">Transportation</option>
+                                <option value="Shopping">Shopping</option>
+                                <option value="Entertainment">Entertainment</option>
+                                <option value="Bills & Utilities">Bills & Utilities</option>
+                                <option value="Healthcare">Healthcare</option>
+                                <option value="Education">Education</option>
+                                <option value="Travel">Travel</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="expenseDescription">Description</label>
+                            <input type="text" id="expenseDescription" placeholder="e.g., Grocery shopping, Gas bill" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="expenseAmount">Amount</label>
+                            <input type="number" id="expenseAmount" placeholder="0.00" step="0.01" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="expenseDate">Date</label>
+                            <input type="date" id="expenseDate" required>
+                        </div>
+                        <button type="submit" class="btn btn-danger">
+                            <i class="fas fa-minus"></i> Add Expense
+                        </button>
+                    </form>
+                </section>
+
+                <!-- Savings Goal Section -->
+                <section class="section">
+                    <h2><i class="fas fa-bullseye"></i> Savings Goal</h2>
+                    <div class="savings-goal">
+                        <div class="goal-input">
+                            <label for="savingsGoal">Monthly Savings Goal</label>
+                            <input type="number" id="savingsGoal" placeholder="0.00" step="0.01">
+                            <button id="setSavingsGoal" class="btn btn-secondary">Set Goal</button>
+                        </div>
+                        <div class="goal-progress">
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="goalProgress"></div>
+                            </div>
+                            <p id="goalText">Set your savings goal to track progress</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Right Panel -->
+            <div class="right-panel">
+                <!-- Charts Section -->
+                <section class="section">
+                    <h2><i class="fas fa-chart-pie"></i> Financial Overview</h2>
+                    <div class="charts-container">
+                        <div class="chart-wrapper">
+                            <canvas id="expenseChart"></canvas>
+                        </div>
+                        <div class="chart-wrapper">
+                            <canvas id="trendChart"></canvas>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Recent Transactions -->
+                <section class="section">
+                    <h2><i class="fas fa-history"></i> Recent Transactions</h2>
+                    <div class="transactions-list" id="transactionsList">
+                        <div class="no-transactions">
+                            <i class="fas fa-inbox"></i>
+                            <p>No transactions yet. Add your first income or expense above!</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Monthly Summary -->
+                <section class="section">
+                    <h2><i class="fas fa-calendar-alt"></i> Monthly Summary</h2>
+                    <div class="monthly-summary" id="monthlySummary">
+                        <div class="summary-item">
+                            <span class="summary-label">Income Sources:</span>
+                            <span class="summary-value" id="incomeSources">0</span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="summary-label">Expense Categories:</span>
+                            <span class="summary-value" id="expenseCategories">0</span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="summary-label">Total Transactions:</span>
+                            <span class="summary-value" id="totalTransactions">0</span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="summary-label">Average Daily Spending:</span>
+                            <span class="summary-value" id="avgDailySpending">$0.00</span>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div id="toast" class="toast"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
